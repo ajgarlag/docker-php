@@ -1,16 +1,18 @@
-FROM ajgarlag/debian:jessie
+FROM ajgarlag/debian:stretch
 
 RUN apt-get update \
     && apt-get install -y \
-        php5-cli \
-        php5-fpm \
+        php7.0-cli \
+        php7.0-fpm \
         git \
     && rm -rf /var/lib/apt/lists/*
 
 RUN sed -e 's/error_log = .*/error_log = \/dev\/stderr/g' \
-        -i /etc/php5/fpm/php-fpm.conf
+        -i /etc/php/7.0/fpm/php-fpm.conf
 RUN sed -e 's/listen = .*/listen = 9000/g' \
-        -i /etc/php5/fpm/pool.d/www.conf
+        -i /etc/php/7.0/fpm/pool.d/www.conf
+RUN mkdir -p /run/php \
+    && chown www-data:www-data /run/php
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
@@ -19,4 +21,4 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 EXPOSE 9000
-CMD ["php5-fpm", "--nodaemonize", "--fpm-config", "/etc/php5/fpm/php-fpm.conf"]
+CMD ["php-fpm7.0", "--nodaemonize", "--fpm-config", "/etc/php/7.0/fpm/php-fpm.conf"]
