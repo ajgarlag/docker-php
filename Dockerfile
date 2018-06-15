@@ -13,6 +13,7 @@ RUN apt-get update \
     && apt-get install -y \
         php7.2-cli \
         php7.2-fpm \
+        php7.2-xdebug \
         git \
     && rm -rf /var/lib/apt/lists/*
 
@@ -26,6 +27,9 @@ RUN mkdir -p /run/php \
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && php -r "unlink('composer-setup.php');"
+
+COPY dev.ini /etc/php/7.2/mods-available/dev.ini
+RUN phpenmod dev
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
