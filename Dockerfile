@@ -4,6 +4,7 @@ RUN apt-get update \
     && apt-get install -y \
         php5-cli \
         php5-fpm \
+        php5-xdebug \
         git \
     && rm -rf /var/lib/apt/lists/*
 
@@ -15,6 +16,9 @@ RUN sed -e 's/listen = .*/listen = 9000/g' \
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && php -r "unlink('composer-setup.php');"
+
+COPY dev.ini /etc/php5/mods-available/dev.ini
+RUN php5enmod dev
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
