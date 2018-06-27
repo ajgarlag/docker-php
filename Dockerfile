@@ -1,10 +1,5 @@
 FROM ajgarlag/debian:stretch
 
-RUN apt-get update \
-    && apt-get install -y \
-        apt-transport-https \
-    && rm -rf /var/lib/apt/lists/*
-
 ADD https://packages.sury.org/php/apt.gpg /etc/apt/trusted.gpg.d/php.gpg
 RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg
 RUN echo "deb https://packages.sury.org/php/ stretch main" | tee /etc/apt/sources.list.d/php.list
