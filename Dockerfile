@@ -6,6 +6,7 @@ RUN apt-get update \
         php7.0-fpm \
         php7.0-xdebug \
         git \
+        unzip \
     && rm -rf /var/lib/apt/lists/*
 
 RUN sed -e 's/error_log = .*/error_log = \/dev\/stderr/g' \
