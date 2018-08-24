@@ -7,6 +7,7 @@ RUN apt-get update \
         php7.0-fpm \
         php7.0-xdebug \
         git \
+        gpg \
         unzip \
     && rm -rf /var/lib/apt/lists/*
 
