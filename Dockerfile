@@ -6,48 +6,48 @@ RUN echo "deb https://packages.sury.org/php/ stretch main" | tee /etc/apt/source
 
 RUN apt-get update \
     && apt-get install -y \
-        php7.2-cli \
-        php7.2-fpm \
-        php7.2-xdebug \
+        php7.3-cli \
+        php7.3-fpm \
+        php7.3-xdebug \
         git \
         gpg \
         unzip \
         # Extensions from PHP source
-        php7.2-bcmath \
-        php7.2-bz2 \
-        php7.2-curl \
-        php7.2-dba \
-        php7.2-enchant \
-        php7.2-gd \
-        php7.2-gmp \
-        php7.2-imap \
-        php7.2-interbase \
-        php7.2-intl \
-        php7.2-json \
-        php7.2-ldap \
-        php7.2-mbstring \
-        php7.2-mysql \
-        php7.2-odbc \
-        php7.2-opcache \
-        php7.2-pgsql \
-        php7.2-pspell \
-        php7.2-readline \
-        php7.2-recode \
-        php7.2-snmp \
-        php7.2-soap \
-        php7.2-sqlite3 \
-        php7.2-sybase \
-        php7.2-tidy \
-        php7.2-xml \
-        php7.2-xmlrpc \
-        php7.2-xsl \
-        php7.2-zip \
+        php7.3-bcmath \
+        php7.3-bz2 \
+        php7.3-curl \
+        php7.3-dba \
+        php7.3-enchant \
+        php7.3-gd \
+        php7.3-gmp \
+        php7.3-imap \
+        php7.3-interbase \
+        php7.3-intl \
+        php7.3-json \
+        php7.3-ldap \
+        php7.3-mbstring \
+        php7.3-mysql \
+        php7.3-odbc \
+        php7.3-opcache \
+        php7.3-pgsql \
+        php7.3-pspell \
+        php7.3-readline \
+        php7.3-recode \
+        php7.3-snmp \
+        php7.3-soap \
+        php7.3-sqlite3 \
+        php7.3-sybase \
+        php7.3-tidy \
+        php7.3-xml \
+        php7.3-xmlrpc \
+        php7.3-xsl \
+        php7.3-zip \
     && rm -rf /var/lib/apt/lists/*
 
 RUN sed -e 's/error_log = .*/error_log = \/dev\/stderr/g' \
-        -i /etc/php/7.2/fpm/php-fpm.conf
+        -i /etc/php/7.3/fpm/php-fpm.conf
 RUN sed -e 's/listen = .*/listen = 9000/g' \
-        -i /etc/php/7.2/fpm/pool.d/www.conf
+        -i /etc/php/7.3/fpm/pool.d/www.conf
 RUN mkdir -p /run/php \
     && chown www-data:www-data /run/php
 
@@ -63,11 +63,11 @@ RUN gpg --no-tty --keyserver ipv4.pool.sks-keyservers.net --recv-keys 0x9D8A98B2
     && chmod 755 /tmp/phive.phar \
     && mv /tmp/phive.phar /usr/local/bin/phive
 
-COPY dev.ini /etc/php/7.2/mods-available/dev.ini
+COPY dev.ini /etc/php/7.3/mods-available/dev.ini
 RUN phpenmod dev
 RUN phpdismod snmp
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 EXPOSE 9000
-CMD ["php-fpm7.2", "--nodaemonize", "--fpm-config", "/etc/php/7.2/fpm/php-fpm.conf"]
+CMD ["php-fpm7.3", "--nodaemonize", "--fpm-config", "/etc/php/7.3/fpm/php-fpm.conf"]
