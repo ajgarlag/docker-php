@@ -50,6 +50,7 @@ RUN gpg --no-tty --keyserver ipv4.pool.sks-keyservers.net --recv-keys 0x9D8A98B2
 
 COPY dev.ini /etc/php5/mods-available/dev.ini
 RUN php5enmod dev
+RUN php5dismod snmp
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
