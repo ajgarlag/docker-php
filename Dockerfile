@@ -65,6 +65,7 @@ RUN gpg --no-tty --keyserver ipv4.pool.sks-keyservers.net --recv-keys 0x9D8A98B2
 
 COPY dev.ini /etc/php/7.2/mods-available/dev.ini
 RUN phpenmod dev
+RUN phpdismod snmp
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
