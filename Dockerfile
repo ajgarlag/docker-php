@@ -1,5 +1,9 @@
 FROM ajgarlag/debian:buster
 
+ADD https://packages.sury.org/php/apt.gpg /etc/apt/trusted.gpg.d/php.gpg
+RUN chmod 644 /etc/apt/trusted.gpg.d/php.gpg
+RUN echo "deb https://packages.sury.org/php/ buster main" | tee /etc/apt/sources.list.d/php.list
+
 RUN apt-get update \
     && apt-get install -y \
         php7.3-cli \
