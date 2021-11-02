@@ -54,7 +54,7 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 
 ADD https://phar.io/releases/phive.phar /tmp/phive.phar
 ADD https://phar.io/releases/phive.phar.asc /tmp/phive.phar.asc
-RUN gpg --no-tty --keyserver ipv4.pool.sks-keyservers.net --recv-keys 0x9D8A98B29B2D5D79 \
+RUN gpg --no-tty --keyserver hkps://keys.openpgp.org --recv-keys 0x9D8A98B29B2D5D79 \
     && gpg --no-tty --verify /tmp/phive.phar.asc /tmp/phive.phar \
     && rm /tmp/phive.phar.asc \
     && chmod 755 /tmp/phive.phar \
