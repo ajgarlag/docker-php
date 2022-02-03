@@ -3,7 +3,7 @@ set -e
 
 # first arg is `-f` or `--some-option`
 if [ "${1#-}" != "$1" ]; then
-    set -- php-fpm7.4 "$@"
+    set -- php-fpm8.0 "$@"
 fi
 
 exec "$@"
