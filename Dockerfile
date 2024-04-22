@@ -6,46 +6,46 @@ RUN echo "deb https://packages.sury.org/php/ bookworm main" | tee /etc/apt/sourc
 
 RUN apt-get update \
     && apt-get install -y \
-        php8.1-cli \
-        php8.1-fpm \
-        php8.1-xdebug \
+        php8.3-cli \
+        php8.3-fpm \
+        php8.3-xdebug \
         git \
         gpg \
         unzip \
         # Extensions from PHP source
-        php8.1-bcmath \
-        php8.1-bz2 \
-        php8.1-curl \
-        php8.1-dba \
-        php8.1-enchant \
-        php8.1-gd \
-        php8.1-gmp \
-        php8.1-imap \
-        php8.1-interbase \
-        php8.1-intl \
-        php8.1-ldap \
-        php8.1-mbstring \
-        php8.1-mysql \
-        php8.1-odbc \
-        php8.1-opcache \
-        php8.1-pgsql \
-        php8.1-pspell \
-        php8.1-readline \
-        php8.1-snmp \
-        php8.1-soap \
-        php8.1-sqlite3 \
-        php8.1-sybase \
-        php8.1-tidy \
-        php8.1-xml \
-        php8.1-xmlrpc \
-        php8.1-xsl \
-        php8.1-zip \
+        php8.3-bcmath \
+        php8.3-bz2 \
+        php8.3-curl \
+        php8.3-dba \
+        php8.3-enchant \
+        php8.3-gd \
+        php8.3-gmp \
+        php8.3-imap \
+        php8.3-interbase \
+        php8.3-intl \
+        php8.3-ldap \
+        php8.3-mbstring \
+        php8.3-mysql \
+        php8.3-odbc \
+        php8.3-opcache \
+        php8.3-pgsql \
+        php8.3-pspell \
+        php8.3-readline \
+        php8.3-snmp \
+        php8.3-soap \
+        php8.3-sqlite3 \
+        php8.3-sybase \
+        php8.3-tidy \
+        php8.3-xml \
+        php8.3-xmlrpc \
+        php8.3-xsl \
+        php8.3-zip \
     && rm -rf /var/lib/apt/lists/*
 
 RUN sed -e 's/error_log = .*/error_log = \/dev\/stderr/g' \
-        -i /etc/php/8.1/fpm/php-fpm.conf
+        -i /etc/php/8.3/fpm/php-fpm.conf
 RUN sed -e 's/listen = .*/listen = 9000/g' \
-        -i /etc/php/8.1/fpm/pool.d/www.conf
+        -i /etc/php/8.3/fpm/pool.d/www.conf
 RUN mkdir -p /run/php \
     && chown www-data:www-data /run/php
 
@@ -61,11 +61,11 @@ RUN gpg --no-tty --keyserver hkps://keys.openpgp.org --recv-keys 0x9D8A98B29B2D5
     && chmod 755 /tmp/phive.phar \
     && mv /tmp/phive.phar /usr/local/bin/phive
 
-COPY dev.ini /etc/php/8.1/mods-available/dev.ini
+COPY dev.ini /etc/php/8.3/mods-available/dev.ini
 RUN phpenmod dev
 RUN phpdismod snmp
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 EXPOSE 9000
-CMD ["php-fpm8.1", "--nodaemonize", "--fpm-config", "/etc/php/8.1/fpm/php-fpm.conf"]
+CMD ["php-fpm8.3", "--nodaemonize", "--fpm-config", "/etc/php/8.3/fpm/php-fpm.conf"]
