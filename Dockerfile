@@ -8,7 +8,7 @@ RUN apt-get update \
     && apt-get install -y \
         php8.4-cli \
         php8.4-fpm \
-        # php8.4-xdebug \
+        php8.4-xdebug \
         git \
         gpg \
         unzip \
